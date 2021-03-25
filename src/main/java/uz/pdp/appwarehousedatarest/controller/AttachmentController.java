@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import uz.pdp.appwarehousedatarest.entity.Attachment;
 import uz.pdp.appwarehousedatarest.sevice.AttachmentService;
 
@@ -16,8 +17,8 @@ public class AttachmentController {
     AttachmentService attachmentService;
 
     @PostMapping
-    public HttpEntity<?> add(@RequestBody Attachment attachment){
-        Attachment savedAttachment = attachmentService.add(attachment);
+    public HttpEntity<?> add(MultipartHttpServletRequest request){
+        Attachment savedAttachment = attachmentService.add(request);
         return ResponseEntity.status(savedAttachment!=null?202:409).body(savedAttachment);
     }
 
@@ -35,8 +36,8 @@ public class AttachmentController {
     }
 
     @PutMapping("/{id}")
-    public HttpEntity<?> edit(@PathVariable Integer id,@RequestBody Attachment attachment){
-        Attachment savedAttachment=attachmentService.edit(id,attachment);
+    public HttpEntity<?> edit(@PathVariable Integer id,MultipartHttpServletRequest request){
+        Attachment savedAttachment=attachmentService.edit(id,request);
         return ResponseEntity.status(savedAttachment!=null?202:409).body(savedAttachment);
     }
 

@@ -5,4 +5,5 @@ import uz.pdp.appwarehousedatarest.entity.AttachmentContent;
 
 public interface AttachmentContentRepository extends JpaRepository<AttachmentContent,Integer> {
     boolean existsById(Integer id);
+    AttachmentContent findAttachmentContentByAttachment_Id(Integer attachment_id);
 }
