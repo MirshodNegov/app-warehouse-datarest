@@ -9,6 +9,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import uz.pdp.appwarehousedatarest.entity.Attachment;
 import uz.pdp.appwarehousedatarest.sevice.AttachmentService;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
 @RestController
 @RequestMapping("/api/attachment")
 public class AttachmentController {
@@ -30,15 +33,9 @@ public class AttachmentController {
     }
 
     @GetMapping("/{id}")
-    public HttpEntity<?> getOne(@PathVariable Integer id){
-        Attachment attachment=attachmentService.getOne(id);
-        return ResponseEntity.status(attachment!=null?200:409).body(attachment);
-    }
-
-    @PutMapping("/{id}")
-    public HttpEntity<?> edit(@PathVariable Integer id,MultipartHttpServletRequest request){
-        Attachment savedAttachment=attachmentService.edit(id,request);
-        return ResponseEntity.status(savedAttachment!=null?202:409).body(savedAttachment);
+    public HttpEntity<?> getOne(@PathVariable Integer id, HttpServletResponse response) throws IOException {
+        boolean bool = attachmentService.getOne(id, response);
+        return ResponseEntity.status(bool?200:409).body("Download");
     }
 
     @DeleteMapping("/{id}")
