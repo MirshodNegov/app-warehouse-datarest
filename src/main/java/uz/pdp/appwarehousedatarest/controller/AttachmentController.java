@@ -25,13 +25,6 @@ public class AttachmentController {
         return ResponseEntity.status(savedAttachment!=null?202:409).body(savedAttachment);
     }
 
-
-    @GetMapping
-    public HttpEntity<?> get(@RequestParam(defaultValue = "0") Integer page,@RequestParam(defaultValue = "10") Integer size){
-        Page<Attachment> attachmentPage=attachmentService.get(page,size);
-        return ResponseEntity.ok(attachmentPage);
-    }
-
     @GetMapping("/{id}")
     public HttpEntity<?> getOne(@PathVariable Integer id, HttpServletResponse response) throws IOException {
         boolean bool = attachmentService.getOne(id, response);

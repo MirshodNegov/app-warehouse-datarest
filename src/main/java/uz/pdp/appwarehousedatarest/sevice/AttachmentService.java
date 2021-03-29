@@ -1,9 +1,6 @@
 package uz.pdp.appwarehousedatarest.sevice;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,11 +22,6 @@ public class AttachmentService {
     AttachmentRepository attachmentRepository;
     @Autowired
     AttachmentContentRepository attachmentContentRepository;
-
-    public Page<Attachment> get(Integer page, Integer size) {
-        Pageable pageable= PageRequest.of(page,size);
-        return attachmentRepository.findAll(pageable);
-    }
 
     public boolean getOne(Integer id, HttpServletResponse response) throws IOException {
         Optional<Attachment> optionalAttachment = attachmentRepository.findById(id);
